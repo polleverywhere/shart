@@ -82,7 +82,7 @@ module Shart
           :key => key,
           :body => File.open(path),
           :public => true,
-          :cache_control => 0 # Disable cache on S3 so that future sharts are visible if folks web browsers.
+          :cache_control => 0 # Must be 0 or S3 will cause browser to cache pages forever. etag is used instead.
         })
       end
     end
