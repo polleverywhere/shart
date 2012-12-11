@@ -63,7 +63,7 @@ module Shart
       sync = new.tap { |dsl| dsl.instance_eval(File.read(filename), filename) }.sync
       puts "Sharting from #{sync.source.root.to_s.inspect} to #{sync.target.directory_name.inspect}"
       sync.run do |path, key, file|
-        puts " #{key.inspect}"
+        puts " #{key}"
       end
     end
   end
@@ -82,7 +82,7 @@ module Shart
           :key => key,
           :body => File.open(path),
           :public => true,
-          :cache_control => 0 # Must be 0 or S3 will cause browser to cache pages forever. etag is used instead.
+          :cache_control => 'max-age=0' # Disable cache on S3 so that future sharts are visible if folks web browsers.
         })
       end
     end
