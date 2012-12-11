@@ -3,3 +3,15 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
 require 'shart'
+
+Shart::DSL.shartfile('Shartfile')
+
+# target = Shart::Target.new 'tech.polleverywhere.com', {
+#   :provider                 => 'AWS',
+#   :aws_secret_access_key    => ENV['AWS_SECRET_ACCESS_KEY'],
+#   :aws_access_key_id        => ENV['AWS_ACCESS_KEY_ID']
+# }
+
+# source = Shart::Source.new('/Users/bradgessler/projects/polleverywhere/tech-blog/build')
+
+# target.sync source

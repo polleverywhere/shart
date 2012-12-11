@@ -18,23 +18,19 @@ Or install it yourself as:
 
 ## Usage
 
-A binary is in the works, but for now, you can create a ruby file like:
+Create a `Shartfile` in the root of your project.
 
 ```ruby
-require 'shart'
-
-target = Shart::Target.new 'my-amazon-s3-bucket-name', {
-  :provider                 => 'AWS',
-  :aws_secret_access_key    => ENV['AWS_SECRET_ACCESS_KEY'],
-  :aws_access_key_id        => ENV['AWS_ACCESS_KEY_ID']
+# A middleman Shartfile
+source './build'
+target 'your-aws-bucket-name', {
+  provider:               'AWS',
+  aws_secret_access_key:  'your AWS credentials',
+  aws_access_key_id:      'your AWS credentials'
 }
-
-source = Shart::Source.new('/Users/johnappleseed/Projects/middleman-site/build')
-
-target.sync source
 ```
 
-Run this file and everything should sync up.
+Now run `shart` from your project root and BOOM! Your website will be deployed. If you're using Middleman, don't forget to run build first.
 
 ## Contributing
 
