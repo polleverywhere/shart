@@ -36,7 +36,7 @@ When you're ready to publish your website, run:
 
 Don't forget to run `middleman build` before you `shart` if you're using Middleman.
 
-After you shart, be sure to [read the blog post about hosting a website on S3](http://aws.typepad.com/aws/2011/02/host-your-static-website-on-amazon-s3.html) if you haven't already configured your S3 bucket to do so.
+After you successfully shart, be sure to [read the blog post about hosting a website on S3](http://aws.typepad.com/aws/2011/02/host-your-static-website-on-amazon-s3.html) if you haven't already configured your S3 bucket to do so.
 
 ## Supported targets
 
