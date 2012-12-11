@@ -21,7 +21,7 @@ Or install it yourself as:
 Create a `Shartfile` in the root of your project.
 
 ```ruby
-# A Middleman Shartfile. Don't forget to run `middleman build` before you `shart`!
+# A Middleman Shartfile
 source './build'
 target 'your-aws-bucket-name', {
   :provider               =>  'AWS',
@@ -30,7 +30,13 @@ target 'your-aws-bucket-name', {
 }
 ```
 
-Now run `shart` from your project root and BOOM! Your website will be deployed. If you're using Middleman, don't forget to run build first.
+Now run: 
+
+    $ shart
+
+From your project root and BOOM! Your website will be deployed.
+
+If you're using Middleman, don't forget to run `middleman build` before you `shart`.
 
 ## Contributing
 
