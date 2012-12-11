@@ -21,7 +21,7 @@ module Shart
     end
 
     def sync(source)
-      Sync.new(source, self).sync
+      Sync.new(source, self).run
     end
   end
 
@@ -41,7 +41,7 @@ module Shart
     end
 
     def sync(target)
-      Sync.new(self, target).sync
+      Sync.new(self, target).run
     end
   end
 
