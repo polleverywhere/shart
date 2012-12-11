@@ -21,12 +21,12 @@ Or install it yourself as:
 Create a `Shartfile` in the root of your project.
 
 ```ruby
-# A middleman Shartfile
+# A Middleman Shartfile. Don't forget to run `middleman build` before you `shart`!
 source './build'
 target 'your-aws-bucket-name', {
-  provider:               'AWS',
-  aws_secret_access_key:  'your AWS credentials',
-  aws_access_key_id:      'your AWS credentials'
+  :provider               =>  'AWS',
+  :aws_secret_access_key  =>  'your AWS credentials',
+  :aws_access_key_id      =>  'your AWS credentials'
 }
 ```
 
