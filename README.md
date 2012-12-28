@@ -34,7 +34,7 @@ After you successfully shart, be sure to [read the blog post about hosting a web
 
 Shart has only been tested with Amazon S3 buckets.
 
-In theory, you can shart into any [storage provider that Fog supports](http://fog.io/0.8.1/about/getting_started.html).
+In theory, you can shart into any [storage provider that Fog supports](http://fog.io/about/getting_started.html).
 
 ## Contributing
 
