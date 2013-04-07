@@ -7,7 +7,7 @@ require 'pathname'
 module Shart
   # The Target is where the content will be published.
   class Target
-    attr_reader :directory_name
+    attr_reader :directory_name, :storage
 
     def initialize(directory_name, opts={})
       @directory_name = directory_name
@@ -19,7 +19,7 @@ module Shart
     end
 
     def directory
-      @directory ||= @storage.directories.get(@directory_name)
+      @directory ||= storage.directories.get(@directory_name)
     end
 
     def sync(source)
@@ -48,6 +48,34 @@ module Shart
     end
   end
 
+  # Register processing rules for objects with an Engine.
+  class Engine
+    # Add a rule to the engine. Based on Dir.glob patterns from the objects on
+    # the file system.
+    def rule(pattern, &block)
+      rules << [pattern, block]
+    end
+
+    # Process the stinkin rules mang.
+    def process(object)
+      rules.each { |pattern, rule| object.instance_eval(&rule) if self.class.match(pattern, object.key) }
+    end
+
+  private
+    def self.match(pattern, key)
+      case pattern
+      when String
+        File.fnmatch(pattern, key)
+      when Regexp
+        key =~ pattern
+      end
+    end
+
+    def rules
+      @rules ||= []
+    end
+  end
+
   # Process info a Shartfile
   class DSL
     def target(directory_name, opts={})
@@ -59,7 +87,11 @@ module Shart
     end
 
     def sync
-      Sync.new(@source, @target)
+      Sync.new(@source, @target, @engine)
+    end
+
+    def path(*paths, &block)
+      paths.each { |path| engine.rule path, &block }
     end
 
     def self.shartfile(filename)
@@ -72,26 +104,33 @@ module Shart
         puts "✗ #{object.public_url}"
       end
     end
+
+  private
+    def engine
+      @engine ||= Engine.new
+    end
   end
 
   # Sync deals with the specifics of getting each file from the source to the target.
   class Sync
-    attr_reader :source, :target
+    attr_reader :source, :target, :engine
 
-    def initialize(source, target)
-      @source, @target = source, target
+    def initialize(source, target, engine = Engine.new)
+      @source, @target, @engine = source, target, engine
     end
 
     # Upload files from target to the source.
     def upload(&block)
       @source.files.each do |key, file|
-        object = @target.files.create({
+        object = @target.files.new({
           :key => key,
           :body => file,
           :public => true,
-          :cache_control => 'max-age=0' # Disable cache on S3 so that future sharts are visible if folks web browsers.
+          :cache_control => 'max-age=0' # Disable cache by default on S3 so that future sharts are visible if folks web browsers.
         })
+        engine.process object
         block.call file, object
+        object.save
       end
     end
 
