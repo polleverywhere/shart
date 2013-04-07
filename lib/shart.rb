@@ -122,15 +122,15 @@ module Shart
     # Upload files from target to the source.
     def upload(&block)
       @source.files.each do |key, file|
-        object = @target.files.new({
+        object = @target.files.create({
           :key => key,
           :body => file,
           :public => true,
           :cache_control => 'max-age=0' # Disable cache by default on S3 so that future sharts are visible if folks web browsers.
         })
         engine.process object
-        block.call file, object
         object.save
+        block.call file, object
       end
     end
 
