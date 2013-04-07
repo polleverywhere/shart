@@ -98,8 +98,10 @@ module Shart
     # Removes files from target that don't exist on the source.
     def clean(&block)
       @target.files.each do |object|
-        block.call(object) unless @source.files.include? object.key
-        object.destroy
+        unless @source.files.include? object.key
+          block.call(object)
+          object.destroy
+        end
       end
     end
   end
