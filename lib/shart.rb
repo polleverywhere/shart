@@ -87,7 +87,7 @@ module Shart
     end
 
     def sync
-      Sync.new(@source, @target, @engine)
+      Sync.new(@source, @target, engine)
     end
 
     def path(*paths, &block)
