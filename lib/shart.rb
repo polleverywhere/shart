@@ -11,6 +11,7 @@ module Shart
 
     def initialize(directory_name, opts={})
       @directory_name = directory_name
+      opts[:path_style] = true
       @storage = Fog::Storage.new(opts)
     end
 
