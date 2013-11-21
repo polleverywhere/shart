@@ -11,6 +11,7 @@ Gem::Specification.new do |gem|
   gem.description   = %q{Deploys static websites like Middleman to cloud storage providers like S3.}
   gem.summary       = %q{Shart makes it easy to deploy static websites to cloud storage providers. Works great with Middleman, Jekyll, or Dreamweaver websites.}
   gem.homepage      = "http://github.com/polleverywhere/shart"
+  gem.license       = "MIT"
 
   gem.files         = `git ls-files`.split($/)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
